@@ -20,7 +20,7 @@ public class Game {
 	};
 	
 	private Triple[] triColors = new Triple[] {
-			new Triple(1.0f,  1.0f,  1.0f), new Triple(1.0f,  1.0f,  1.0f), new Triple(1.0f,  1.0f,  1.0f)
+			new Triple(0.0f,  1.0f,  1.0f), new Triple(0.0f,  1.0f,  0.0f), new Triple(0.0f,  0.0f,  1.0f)
 	};
 	
 	private TriangleModel tri = new TriangleModel(tris, triColors);
