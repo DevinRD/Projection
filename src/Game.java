@@ -25,6 +25,32 @@ public class Game {
 	
 	private TriangleModel tri = new TriangleModel(tris, triColors);
 	
+	private Shader vertexShader = new Shader(
+			"vertex",
+			
+			"#version 330 core\n" +
+			"layout (location = 0 ) in vec3 vertexPosition;\n" +
+			"layout (location = 1 ) in vec3 vertexColor;\n" +
+			"out vec3 color;\n" +
+			"void main(void)\n" +
+			"{\n" +
+			"  color = vertexColor;\n" +
+			"  gl_Position = vec4( vertexPosition, 1.0);\n" +
+			"}\n"
+	);
+	
+	private Shader fragmentShader = new Shader(
+			"fragment",
+			
+			"#version 330 core\n" +
+			"in vec3 color;\n" +
+			"layout (location = 0 ) out vec4 fragColor;\n" +
+			"void main(void)\n" +
+			"{\n" +
+			"  fragColor = vec4(color, 1.0 );\n" +
+			"}\n"
+	);
+	
 	public Game() {
 		windowWidth = 500;
 		windowHeight = 500;
@@ -42,6 +68,8 @@ public class Game {
 		
 		window = new Window(windowWidth, windowHeight, windowTitle);
 		window.setClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+		window.setShader(vertexShader);
+		window.setShader(fragmentShader);
 	}
 	
 	private void run() {

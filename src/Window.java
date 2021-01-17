@@ -191,5 +191,27 @@ public class Window {
 	public void setClearColor(float r, float g, float b, float a) {
 		glClearColor(r, g, b, a);
 	}
+	
+	public void setShader(Shader shader) {
+		int handle;
+		
+		if (shader.getType().equals("vertex")) {
+			handle = GL20.glCreateShader(GL20.GL_VERTEX_SHADER);
+		}
+		else if(shader.getType().equals("fragment")) {
+			handle = GL20.glCreateShader(GL20.GL_FRAGMENT_SHADER);
+		}
+		else {
+			throw new IllegalArgumentException();
+		}
+		
+		GL20.glShaderSource(handle, shader.getCode());
+		GL20.glCompileShader(handle);
+		
+		GL20.glAttachShader(p, handle);
+		
+		GL20.glLinkProgram(p);
+		GL20.glUseProgram(p);
+	}
 
 }
