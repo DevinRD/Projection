@@ -72,14 +72,15 @@ public class Game {
 	        }
 
 	        if (System.currentTimeMillis() - timer > 1000) {
-	            if (RENDER_TIME) {
+	            if (RENDER_TIME)
 	                System.out.println(String.format("UPS: %s, FPS: %s", ticks, frames));
-	            }
 	            frames = 0;
 	            ticks = 0;
 	            timer += 1000;
 	        }
 		}
+		
+		window.close();
 	}
 	
 	private void update() {
