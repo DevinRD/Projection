@@ -1,5 +1,10 @@
 import java.util.ArrayList;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+
 public class Game {
 	
 	private int windowWidth, windowHeight;
@@ -65,6 +70,28 @@ public class Game {
 		
 		objects = new ArrayList<Model>();
 		objects.add(tri);
+		System.out.println(tri);
+		
+		window = new Window(windowWidth, windowHeight, windowTitle);
+		window.setClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+		window.setShader(vertexShader);
+		window.setShader(fragmentShader);
+	}
+	
+	public Game(String mapPath) {
+		windowWidth = 500;
+		windowHeight = 500;
+		windowTitle = "Game";
+		
+		clearColor = new float[3];
+		clearColor[0] = 1.0f;
+		clearColor[1] = 0.0f;
+		clearColor[2] = 0.0f;
+		
+		FPS = 60; UPS = 60;
+		
+		objects = new ArrayList<Model>();
+		loadMap(mapPath);
 		
 		window = new Window(windowWidth, windowHeight, windowTitle);
 		window.setClearColor(1.0f, 0.0f, 0.0f, 1.0f);
@@ -121,8 +148,56 @@ public class Game {
 		window.display();
 	}
 	
+	private void loadMap(String path) {
+		String line;
+		
+		try {
+			BufferedReader map = new BufferedReader(new FileReader(path));
+			while ((line = map.readLine()) != null) {
+				if (line.equals("triangle")) {
+					line = map.readLine();
+					String[] nums = line.split(" ");
+					
+					if (nums != null && nums.length != 9) {
+						objects = new ArrayList<Model>();
+						System.out.println("Unable to read " + path + ". Incorrect format?");
+					}
+					
+					float[] vertices = new float[9];
+					for (int i = 0; i < nums.length; i++)
+						vertices[i] = Float.valueOf(nums[i]);
+					
+					line = map.readLine();
+					nums = line.split(" ");
+					
+					if (nums != null && nums.length != 9) {
+						objects = new ArrayList<Model>();
+						System.out.println("Unable to read " + path + ". Incorrect format?");
+					}
+					
+					float[] colors = new float[9];
+					for (int i = 0; i < nums.length; i++)
+						colors[i] = Float.valueOf(nums[i]);
+					
+					TriangleModel m = new TriangleModel(vertices, colors);
+					System.out.println(m);
+					objects.add(m);
+				}
+				else {
+					objects = new ArrayList<Model>();
+					System.out.println("Unable to read " + path + ". Incorrect format?");
+				}
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println(path + " was not found.");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static void main(String[] args) {
-		new Game().run();
+		new Game("./res/maps/map.txt").run();
+		//new Game().run();
 	}
 
 }

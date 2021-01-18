@@ -40,14 +40,24 @@ public class Triple {
 		if (f.length % 3 != 0) throw new IllegalArgumentException();
 		Triple[] t = new Triple[f.length / 3];
 		
-		for (int i = 0; i < t.length; i++)
-			t[i] = new Triple(f[i], f[i + 1], f[i + 2]);
+		for (int i = 0; i < f.length; i += 3)
+			t[i / 3] = new Triple(f[i], f[i + 1], f[i + 2]);
 		
 		return t;
 	}
 	
 	public Triple add(float f) {
 		return new Triple(a + f, b + f, c + f);
+	}
+	
+	public String toString() {
+		String output = "(";
+		
+		output += a;
+		output += ", " + b;
+		output += ", " + c + ")";
+		
+		return output;
 	}
 
 }
