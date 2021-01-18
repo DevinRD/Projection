@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 
-import java.io.File;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Game {
 	
@@ -70,10 +70,16 @@ public class Game {
 		
 		objects = new ArrayList<Model>();
 		objects.add(tri);
-		System.out.println(tri);
+		
+		try {
+			vertexShader = new Shader("./res/shaders/VertexShader.txt");
+			fragmentShader = new Shader("./res/shaders/FragmentShader.txt");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		window = new Window(windowWidth, windowHeight, windowTitle);
-		window.setClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+		window.setClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		window.setShader(vertexShader);
 		window.setShader(fragmentShader);
 	}
@@ -93,8 +99,15 @@ public class Game {
 		objects = new ArrayList<Model>();
 		loadMap(mapPath);
 		
+		try {
+			vertexShader = new Shader("./res/shaders/VertexShader.txt");
+			fragmentShader = new Shader("./res/shaders/FragmentShader.txt");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		window = new Window(windowWidth, windowHeight, windowTitle);
-		window.setClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+		window.setClearColor(0.0f, 0.25f, 0.45f, 1.0f);
 		window.setShader(vertexShader);
 		window.setShader(fragmentShader);
 	}
@@ -139,7 +152,7 @@ public class Game {
 	}
 	
 	private void update() {
-		int num = 5; // TODO: delete
+		
 	}
 	
 	private void render() {
@@ -180,7 +193,6 @@ public class Game {
 						colors[i] = Float.valueOf(nums[i]);
 					
 					TriangleModel m = new TriangleModel(vertices, colors);
-					System.out.println(m);
 					objects.add(m);
 				}
 				else {
@@ -188,6 +200,9 @@ public class Game {
 					System.out.println("Unable to read " + path + ". Incorrect format?");
 				}
 			}
+			
+			map.close();
+			
 		} catch (FileNotFoundException e) {
 			System.out.println(path + " was not found.");
 		} catch (Exception e) {
