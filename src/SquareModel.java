@@ -44,6 +44,39 @@ public class SquareModel extends Model {
 		colors[5] = col[0];
 	}
 	
+	public SquareModel(float x, float y, float z, float width, float r, float g, float b) {
+		positions = new Triple[6];
+		colors = new Triple[6];
+		
+		positions[0] = new Triple(x - width/2, y - width/2, z);
+		positions[1] = new Triple(x + width/2, y - width/2, z);
+		positions[2] = new Triple(x + width/2, y + width/2, z);
+		positions[3] = new Triple(x + width/2, y + width/2, z);
+		positions[4] = new Triple(x - width/2, y + width/2, z);
+		positions[5] = new Triple(x - width/2, y - width/2, z);
+		
+		Triple color = new Triple(r, g, b);
+		for (int i = 0; i < colors.length; i++) colors[i] = color;
+	}
+	
+	public SquareModel(Triple position, float width, Triple color) {
+		positions = new Triple[6];
+		colors = new Triple[6];
+		
+		float x = position.get(0);
+		float y = position.get(1);
+		float z = position.get(2);
+		
+		positions[0] = new Triple(x - width/2, y - width/2, z);
+		positions[1] = new Triple(x + width/2, y - width/2, z);
+		positions[2] = new Triple(x + width/2, y + width/2, z);
+		positions[3] = new Triple(x + width/2, y + width/2, z);
+		positions[4] = new Triple(x - width/2, y + width/2, z);
+		positions[5] = new Triple(x - width/2, y - width/2, z);
+		
+		for (int i = 0; i < colors.length; i++) colors[i] = color;
+	}
+	
 	public SquareModel(TriangleModel t1, TriangleModel t2) {
 		float[] p = new float[12];
 		float[] c = new float[12];
