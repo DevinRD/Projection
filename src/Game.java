@@ -28,7 +28,16 @@ public class Game {
 			new Triple(0.0f,  1.0f,  1.0f), new Triple(0.0f,  1.0f,  0.0f), new Triple(0.0f,  0.0f,  1.0f)
 	};
 	
+	private Triple[] squares = new Triple[] {
+			new Triple(-0.5f, -0.5f,  0.0f), new Triple(0.5f, -0.5f,  0.0f), new Triple(0.5f,  0.5f,  0.0f), new Triple(-0.5f, 0.5f, 0.0f)
+	};
+	
+	private Triple[] squareColors = new Triple[] {
+			new Triple(0.0f,  1.0f,  1.0f), new Triple(0.0f,  1.0f,  0.0f), new Triple(0.0f,  0.0f,  1.0f), new Triple(1.0f, 0.0f, 0.0f)
+	};
+	
 	private TriangleModel tri = new TriangleModel(tris, triColors);
+	private SquareModel square = new SquareModel(squares, squareColors);
 	
 	private Shader vertexShader = new Shader(
 			"vertex",
@@ -70,6 +79,7 @@ public class Game {
 		
 		objects = new ArrayList<Model>();
 		objects.add(tri);
+		objects.add(square);
 		
 		try {
 			vertexShader = new Shader("./res/shaders/VertexShader.txt");
@@ -193,6 +203,34 @@ public class Game {
 						colors[i] = Float.valueOf(nums[i]);
 					
 					TriangleModel m = new TriangleModel(vertices, colors);
+					objects.add(m);
+				}
+				else if (line.equals("square")) {
+					line = map.readLine();
+					String[] nums = line.split(" ");
+					
+					if (nums != null && nums.length != 12) {
+						objects = new ArrayList<Model>();
+						System.out.println("Unable to read " + path + ". Incorrect format?");
+					}
+					
+					float[] vertices = new float[12];
+					for (int i = 0; i < nums.length; i++)
+						vertices[i] = Float.valueOf(nums[i]);
+					
+					line = map.readLine();
+					nums = line.split(" ");
+					
+					if (nums != null && nums.length != 9) {
+						objects = new ArrayList<Model>();
+						System.out.println("Unable to read " + path + ". Incorrect format?");
+					}
+					
+					float[] colors = new float[12];
+					for (int i = 0; i < nums.length; i++)
+						colors[i] = Float.valueOf(nums[i]);
+					
+					SquareModel m = new SquareModel(vertices, colors);
 					objects.add(m);
 				}
 				else {
