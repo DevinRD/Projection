@@ -29,7 +29,7 @@ public class Game {
 	};
 	
 	private Triple[] squares = new Triple[] {
-			new Triple(-0.5f, -0.5f,  0.0f), new Triple(0.5f, -0.5f,  0.0f), new Triple(0.5f,  0.5f,  0.0f), new Triple(-0.5f, 0.5f, 0.0f)
+			new Triple(-0.5f, -0.5f,  0.1f), new Triple(0.5f, -0.5f,  0.1f), new Triple(0.5f,  0.5f,  0.1f), new Triple(-0.5f, 0.5f, 0.1f)
 	};
 	
 	private Triple[] squareColors = new Triple[] {
@@ -45,21 +45,17 @@ public class Game {
 	private Shader fragmentShader;
 	
 	public Game() {
-		windowWidth = 500;
-		windowHeight = 500;
+		windowWidth = 600;
+		windowHeight = 600;
 		windowTitle = "Game";
 		
-		clearColor = new float[3];
-		clearColor[0] = 1.0f;
-		clearColor[1] = 0.0f;
-		clearColor[2] = 0.0f;
+		clearColor = new float[] {1.0f, 0.0f, 0.0f};
 		
 		FPS = 60; UPS = 60;
 		
 		objects = new ArrayList<Model>();
 		objects.add(tri);
 		objects.add(square);
-		objects.add(mySquare);
 		
 		try {
 			vertexShader = new Shader("./res/shaders/VertexShader.txt");
@@ -68,21 +64,21 @@ public class Game {
 			e.printStackTrace();
 		}
 		
+		for (Model m:objects) System.out.println(m);
+		
+		
 		window = new Window(windowWidth, windowHeight, windowTitle);
-		window.setClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+		window.setClearColor(0.01f, 0.01f, 0.1f, 1.0f);
 		window.setShader(vertexShader);
 		window.setShader(fragmentShader);
 	}
 	
 	public Game(String mapPath) {
-		windowWidth = 500;
-		windowHeight = 500;
+		windowWidth = 600;
+		windowHeight = 600;
 		windowTitle = "Game";
 		
-		clearColor = new float[3];
-		clearColor[0] = 1.0f;
-		clearColor[1] = 0.0f;
-		clearColor[2] = 0.0f;
+		clearColor = new float[] {1.0f, 0.0f, 0.0f};
 		
 		FPS = 60; UPS = 60;
 		
@@ -97,8 +93,12 @@ public class Game {
 			e.printStackTrace();
 		}
 		
+		for (Model m:objects) System.out.println(m);
+		System.out.println();
+		System.out.println();
+		
 		window = new Window(windowWidth, windowHeight, windowTitle);
-		window.setClearColor(0.0f, 0.25f, 0.45f, 1.0f);
+		window.setClearColor(0.01f, 0.01f, 0.15f, 1.0f);
 		window.setShader(vertexShader);
 		window.setShader(fragmentShader);
 	}
@@ -238,7 +238,7 @@ public class Game {
 	
 	public static void main(String[] args) {
 		new Game("./res/maps/map.txt").run();
-		//new Game().run();
+		new Game().run();
 	}
 
 }

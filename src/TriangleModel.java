@@ -16,7 +16,8 @@ public class TriangleModel extends Model {
 	}
 	
 	public String toString() {
-		String output = "Vertices: ";
+		String output = "Triangle\n" + 
+						"Vertices: ";
 		output += positions[0] + ", " + positions[1] + ", " + positions[2] + "\n";
 		
 		output += "Colors: ";

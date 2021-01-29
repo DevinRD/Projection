@@ -94,5 +94,16 @@ public class SquareModel extends Model {
 		positions = Triple.arrayToTriples(p);
 		colors = Triple.arrayToTriples(c);
 	}
+	
+	public String toString() {
+		String output = "Square\n" +
+						"Vertices: ";
+		output += positions[0] + ", " + positions[1] + ", " + positions[2] + ", " + positions[3] + "\n";
+		
+		output += "Colors: ";
+		output += colors[0] + ", " + colors[1] + ", " + colors[2] + ", " + colors[3];
+		
+		return output;	
+	}
 
 }
